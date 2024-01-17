@@ -14,7 +14,7 @@ You can install the development version of dinoR from
 [GitHub](https://github.com/) with:
 
 ``` r
-BiocManager::install("fmi-basel/gbuehler-dinoR", subdir = "dinoR")
+BiocManager::install("xxxmichixxx/dinoR")
 ```
 
 then we can load dinoR and other necessary packages:
@@ -48,12 +48,12 @@ This represents an efficient way of sharing NOMe-seq data.
 NomeData <- readRDS(system.file("extdata", "NOMeSeqData.rds", package = "dinoR"))
 NomeData
 #> class: RangedSummarizedExperiment 
-#> dim: 267 4 
+#> dim: 219 4 
 #> metadata(0):
 #> assays(5): nFragsFetched nFragsNonUnique nFragsBisFailed nFragsAnalyzed
 #>   reads
-#> rownames(267): Adnp_chr8_47978653_47979275
-#>   Adnp_chr6_119394879_119395501 ... Rest_chrX_7794908_7795530
+#> rownames(219): Adnp_chr8_47978653_47979275
+#>   Adnp_chr6_119394879_119395501 ... Rest_chr4_140283342_140283964
 #>   Rest_chr7_64704080_64704702
 #> rowData names(1): motif
 #> colnames(4): AdnpKO_1 AdnpKO_2 WT_1 WT_2
@@ -133,11 +133,11 @@ NomeData <- footprintCalc(NomeData)
 NomeData <- footprintQuant(NomeData)
 NomeData
 #> class: RangedSummarizedExperiment 
-#> dim: 267 4 
+#> dim: 219 4 
 #> metadata(0):
 #> assays(12): nFragsFetched nFragsNonUnique ... downNuc all
-#> rownames(267): Adnp_chr8_47978653_47979275
-#>   Adnp_chr6_119394879_119395501 ... Rest_chrX_7794908_7795530
+#> rownames(219): Adnp_chr8_47978653_47979275
+#>   Adnp_chr6_119394879_119395501 ... Rest_chr4_140283342_140283964
 #>   Rest_chr7_64704080_64704702
 #> rowData names(1): motif
 #> colnames(4): AdnpKO_1 AdnpKO_2 WT_1 WT_2
@@ -161,20 +161,20 @@ calculated on the total fragment counts.
 res <- diNOMeTest(NomeData,WTsamples = c("WT_1","WT_2"),
   KOsamples = c("AdnpKO_1","AdnpKO_2"))
 res
-#> # A tibble: 1,240 × 10
-#>     logFC logCPM     F      PValue       FDR contrasts   ROI    motif logadjPval
-#>     <dbl>  <dbl> <dbl>       <dbl>     <dbl> <chr>       <chr>  <chr>      <dbl>
-#>  1  2.11   10.6  27.3  0.000000193 0.0000478 open_vs_all Adnp_… Adnp       4.32 
-#>  2  1.68   10.5  16.5  0.0000491   0.00609   open_vs_all Adnp_… Adnp       2.22 
-#>  3  1.52   10.0   9.36 0.00224     0.185     open_vs_all Adnp_… Adnp       0.732
-#>  4  1.21    8.97  8.62 0.00336     0.199     open_vs_all Adnp_… Adnp       0.701
-#>  5 -1.47   10.2   8.20 0.00423     0.199     open_vs_all Ctcf_… Adnp       0.701
-#>  6  1.03   10.2   7.96 0.00481     0.199     open_vs_all Adnp_… Adnp       0.701
-#>  7  1.13    9.88  6.84 0.00899     0.318     open_vs_all Adnp_… Adnp       0.497
-#>  8  1.32   10.5   5.72 0.0169      0.523     open_vs_all Adnp_… Adnp       0.281
-#>  9  1.06   10.7   5.51 0.0190      0.523     open_vs_all Adnp_… Adnp       0.281
-#> 10  0.994  10.4   4.83 0.0281      0.633     open_vs_all Adnp_… Adnp       0.199
-#> # ℹ 1,230 more rows
+#> # A tibble: 1,040 × 10
+#>     logFC logCPM     F    PValue     FDR contrasts   ROI        motif logadjPval
+#>     <dbl>  <dbl> <dbl>     <dbl>   <dbl> <chr>       <chr>      <chr>      <dbl>
+#>  1  1.69   10.9  17.5  0.0000305 0.00635 open_vs_all Adnp_chr4… Adnp       2.20 
+#>  2  1.53   10.4   9.22 0.00242   0.197   open_vs_all Adnp_chr6… Adnp       0.706
+#>  3  1.22    9.34  8.83 0.00300   0.197   open_vs_all Adnp_chr8… Adnp       0.706
+#>  4 -1.46   10.5   8.14 0.00437   0.197   open_vs_all Ctcf_chr2… Adnp       0.706
+#>  5  1.05   10.6   8.00 0.00473   0.197   open_vs_all Adnp_chr1… Adnp       0.706
+#>  6  1.13   10.2   6.75 0.00946   0.328   open_vs_all Adnp_chr1… Adnp       0.484
+#>  7  1.00   10.8   4.97 0.0259    0.612   open_vs_all Adnp_chr4… Adnp       0.213
+#>  8 -1.12   10.9   4.82 0.0282    0.612   open_vs_all Ctcf_chr7… Adnp       0.213
+#>  9  0.566   9.86  4.72 0.0299    0.612   open_vs_all Adnp_chr2… Adnp       0.213
+#> 10 -1.00    9.62  4.65 0.0312    0.612   open_vs_all Rest_chr7… Adnp       0.213
+#> # ℹ 1,030 more rows
 #> # ℹ 1 more variable: regulated <chr>
 ```
 

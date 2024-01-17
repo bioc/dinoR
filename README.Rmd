@@ -25,7 +25,7 @@ The goal of dinoR is to facilitate differential NOMe-seq data analysis.
 You can install the development version of dinoR from [GitHub](https://github.com/) with:
 
 ``` r
-BiocManager::install("fmi-basel/gbuehler-dinoR", subdir = "dinoR")
+BiocManager::install("xxxmichixxx/dinoR")
 ```
 
 then we can load dinoR and other necessary packages:
