@@ -37,7 +37,7 @@ suppressPackageStartupMessages({
 
 ### Load the NOMe-seq data for Adnp Knock-Out and WT mouse ES cells (two replicates each)
 
-We use [biscuit](https://huishenlab.github.io/biscuit/) to map 300bp paired-end reads to the genome, [UMI-tools](https://github.com/CGATOxford/UMI-tools) to remove duplicated UMIs, and the [fetch-NOMe package](https://github.com/fmi-basel/gpeters-fetchNOMe) to get the protection from GCH methylation calls for each read pair (fragment) overlapping a region of interest (ROI). The ROIs provided to fetchNOMe should all be centered around a transcription factor motif. Note that we use protection from methylation calls (0 = methylated, 1 = not methylated). 
+We use [biscuit](https://huishenlab.github.io/biscuit/) to map 300bp paired-end reads to the genome, [UMI-tools](https://github.com/CGATOxford/UMI-tools) to remove duplicated UMIs, and the [fetch-NOMe package](https://github.com/fmi-basel/gpeters-fetchNOMe) to get the protection from GCH methylation calls for each read pair (fragment) overlapping a region of interest (ROI). The ROIs provided to fetchNOMe should all be centered around a transcription factor motif, with the strand of the motif indicated. That will ensure that the genomic positions around the motif are sorted according to motif strand, which will allow the user to observe potential asymetries in protection from methylation relative to the TF motif. Note that we use protection from methylation calls (0 = methylated, 1 = not methylated). 
 We then use the R package [NOMeConverteR](https://github.com/fmi-basel/gbuehler-NOMeConverteR) to convert the resulting tibble into a ranged summarized experiment object. This represents an efficient way of sharing NOMe-seq data. 
 
 ```{r load data}
