@@ -19,7 +19,7 @@
 #' @importFrom Matrix Matrix
 #'
 #' @export
-createExampleData <- function(samples=c("WT_1","WT_2","KO_1","KO_2"),group=c("WT","WT","KO","KO"),nROI=5,randomMeth=TRUE){
+createExampleData <- function(samples=c("WT_1","WT_2","KO_1","KO_2"),group=c("WT","WT","KO","KO"),nROI=2,randomMeth=TRUE){
 
 #construct a Ranged Summarized Experiment containing the NOMeseq data
 #sample annotations (colData)
