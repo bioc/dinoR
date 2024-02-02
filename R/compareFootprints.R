@@ -12,17 +12,13 @@
 #' @param KOsamples The treatment sample names.
 #' @param plotcols A character vector of colors to be used for distinguishing the ROI groups (has to be the same length as there are ROI groups).
 #' @param facetROIgroup If TRUE, split the plots for each pattern by ROI group.
-#'
+#' @param plot If TRUE, will output a plot.
 #' @return A scatter plot for each footprint pattern comparing WT and KO percentages and significance test results.
 #'
 #' @examples
-#' NomeData <- createExampleData()
-#' NomeData <- footprintCalc(NomeData)
-#' footprint_counts <- footprintQuant(NomeData)
-#' res <- diNOMeTest(footprint_counts,WTsamples = c("WT_1","WT_2"),
-#' KOsamples = c("KO_1","KO_2"))
-#' footprint_percentages <- footprintPerc(footprint_counts)
-#' compareFootprints(footprint_percentages,res,plotcols="black")
+#' res <- read.table(system.file("extdata", "res.txt", package = "dinoR"),header=TRUE)
+#' footprint_percentages <- read.table(system.file("extdata", "fp.txt", package = "dinoR"),header=TRUE)
+#' compareFootprints(footprint_percentages,res,plotcols="black",plot=TRUE)
 #'
 #' @importFrom ggplot2 ggplot aes geom_point theme_classic xlim ylim geom_abline scale_color_manual scale_shape_manual ggtitle facet_wrap vars
 #' @importFrom rlang .data
@@ -32,7 +28,7 @@
 #'
 #' @export
 compareFootprints <- function(footprint_percentages, res, WTsamples = c("WT_1","WT_2"),
-                              KOsamples = c("KO_1","KO_2"), plotcols, facetROIgroup = FALSE){
+                              KOsamples = c("KO_1","KO_2"), plotcols, facetROIgroup = FALSE,plot=TRUE){
 
 
   #patterns <- c("tf", "open", "upNuc", "Nuc", "downNuc")
@@ -57,6 +53,7 @@ compareFootprints <- function(footprint_percentages, res, WTsamples = c("WT_1","
     patternQuantPercSelAve <- left_join(patternQuantPercSelAve,
                                         res[res$contrasts==paste0(patterns[i],"_vs_all"),],by=c("ROI"="ROI"))
 
+
     #plot
     plotlist[[i]] <-  ggplot(patternQuantPercSelAve,
                              aes(x=.data$WT,y=.data$KO,col=.data$ROIgroup,shape=.data$regulated)) +
@@ -69,7 +66,11 @@ compareFootprints <- function(footprint_percentages, res, WTsamples = c("WT_1","
     plotlist[[i]] <- plotlist[[i]] + facet_wrap(vars(.data$ROIgroup))
     }
   }
-
+  if (plot == TRUE){
   return(plot_grid(plotlist = plotlist, ncol = 3, align = "vh"))
+  } else {
+    return("Plots not shown.")
+  }
+
 }
 

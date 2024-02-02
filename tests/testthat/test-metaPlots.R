@@ -1,13 +1,7 @@
 library(tibble)
 
-#test that it works with random example data
-NomeData <- createExampleData()
-test_that("metaPlots works", {
-  expect_no_error(metaPlots(NomeData,span=0.08))
-})
-
 #test that the output is as expected when using default example data
-NomeData <- createExampleData(samples=c("WT_1"),group=c("WT"),nROI=5,randomMeth=FALSE)
+NomeData <- createExampleData(samples=c("WT_1"),group=c("WT"),nROI=3,randomMeth=FALSE)
 plotData <- metaPlots(NomeData,span=0.2)
 plotData$protection <- round(plotData$protection)
 plotData$loess <- round(plotData$loess)

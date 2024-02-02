@@ -73,7 +73,6 @@ footprintCalc <- function(NomeData,window_1=c(-50,-25),window_2=c(-8,8),window_3
 }
 
 
-
 #function to calculate patterns
 .calcPatterns <- function(sereads,windows){
   #combine sparse matrixes to protection matrix

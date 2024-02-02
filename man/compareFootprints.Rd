@@ -10,7 +10,8 @@ compareFootprints(
   WTsamples = c("WT_1", "WT_2"),
   KOsamples = c("KO_1", "KO_2"),
   plotcols,
-  facetROIgroup = FALSE
+  facetROIgroup = FALSE,
+  plot = TRUE
 )
 }
 \arguments{
@@ -26,6 +27,8 @@ with the rows clustered by similarity.}
 \item{plotcols}{A character vector of colors to be used for distinguishing the ROI groups (has to be the same length as there are ROI groups).}
 
 \item{facetROIgroup}{If TRUE, split the plots for each pattern by ROI group.}
+
+\item{plot}{If TRUE, will output a plot.}
 }
 \value{
 A scatter plot for each footprint pattern comparing WT and KO percentages and significance test results.
@@ -38,12 +41,8 @@ Plots the percentages of reads in each ROI in WT versus KO samples (mean of two 
 footprint pattern. The color indicates the ROI group and the shape the results of the diNOMeTest.
 }
 \examples{
-NomeData <- createExampleData()
-NomeData <- footprintCalc(NomeData)
-footprint_counts <- footprintQuant(NomeData)
-res <- diNOMeTest(footprint_counts,WTsamples = c("WT_1","WT_2"),
-KOsamples = c("KO_1","KO_2"))
-footprint_percentages <- footprintPerc(footprint_counts)
-compareFootprints(footprint_percentages,res,plotcols="black")
+res <- read.table(system.file("extdata", "res.txt", package = "dinoR"),header=TRUE)
+footprint_percentages <- read.table(system.file("extdata", "fp.txt", package = "dinoR"),header=TRUE)
+compareFootprints(footprint_percentages,res,plotcols="black",plot=TRUE)
 
 }
