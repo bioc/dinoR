@@ -7,7 +7,7 @@
 createExampleData(
   samples = c("WT_1", "WT_2", "KO_1", "KO_2"),
   group = c("WT", "WT", "KO", "KO"),
-  nROI = 2,
+  nROI = 4,
   randomMeth = TRUE
 )
 }
