@@ -1,6 +1,6 @@
 Package: dinoR
 Title: Differential NOMe-seq analysis
-Version: 0.99.1
+Version: 0.99.2
 Authors@R: 
     person("Michaela", "Schwaiger",, "michaela.schwaiger@fmi.ch", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-4522-7810"))
@@ -17,7 +17,7 @@ Description: dinoR tests for significant differences in NOMe-seq
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Suggests: 
     knitr,
     rmarkdown,

@@ -19,7 +19,7 @@
 #' @importFrom Matrix Matrix
 #'
 #' @export
-createExampleData <- function(samples=c("WT_1","WT_2","KO_1","KO_2"),group=c("WT","WT","KO","KO"),nROI=20,randomMeth=TRUE){
+createExampleData <- function(samples=c("WT_1","WT_2","KO_1","KO_2"),group=c("WT","WT","KO","KO"),nROI=5,randomMeth=TRUE){
 
 #construct a Ranged Summarized Experiment containing the NOMeseq data
 #sample annotations (colData)
@@ -27,7 +27,7 @@ annots <- data.frame(samples=samples,group=group)
 rownames(annots) <- annots$samples
 
 #ROI annotations (rowData)
-ROIs_gr <- rep(GRanges("chr1:100-400:+"),nROI)
+ROIs_gr <- rep(GRanges("chr1:100-200:+"),nROI)
 ROIs_gr$motif <- "motif1"
 names(ROIs_gr) <- paste0("ROI",seq_len(nROI))
 
@@ -57,15 +57,17 @@ for(s in seq_along(annots$samples)){
                   seqinfo=NULL, seqlengths=NULL, stitch=NA)
 
     if(randomMeth == TRUE){ #randomly generate the TRUE FALSE values for the sparse matrices
-           gpos1$protection <- Matrix(matrix(sample(c(TRUE,FALSE),size=301*20,
-                                             replace=TRUE),nrow=301,ncol=20),sparse=TRUE)
-           gpos1$methylation <- Matrix(matrix(sample(c(TRUE,FALSE),size=301*20,
-                                              replace=TRUE),nrow=301,ncol=20),sparse=TRUE)
+           gpos1$protection <- Matrix(matrix(sample(c(TRUE,FALSE),size=101*20,
+                                             replace=TRUE),nrow=101,ncol=20),sparse=TRUE)
+           gpos1$methylation <- Matrix(matrix(sample(c(TRUE,FALSE),size=101*20,
+                                              replace=TRUE),nrow=101,ncol=20),sparse=TRUE)
     } else { # keep the TRUE FALSE values constant (for testing)
-           meth <- rep(c(TRUE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,TRUE,FALSE,FALSE),301)
-           prot <- rep(c(FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE),301)
-           gpos1$protection <- Matrix(matrix(prot,nrow=301,ncol=20),sparse=TRUE)
-           gpos1$methylation <- Matrix(matrix(meth,nrow=301,ncol=20),sparse=TRUE)
+           meth <- rep(c(TRUE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,
+                         FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,TRUE,FALSE,FALSE),101)
+           prot <- rep(c(FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,TRUE,FALSE,FALSE,
+                         FALSE,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE),101)
+           gpos1$protection <- Matrix(matrix(prot,nrow=101,ncol=20),sparse=TRUE)
+           gpos1$methylation <- Matrix(matrix(meth,nrow=101,ncol=20),sparse=TRUE)
     }
     gr_list1[[r]] <- gpos1
   }
