@@ -6,5 +6,5 @@ NomeData <- footprintCalc(NomeData)
 NomeData <- footprintQuant(NomeData)
 
 test_that("diNOMeTest works", {
-  expect_no_error(diNOMeTest(NomeData))
+    expect_no_error(diNOMeTest(NomeData))
 })

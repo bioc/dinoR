@@ -18,7 +18,8 @@ createExampleData(
 
 \item{nROI}{The number of ROIs that should be constructed.}
 
-\item{randomMeth}{Logical indicating whether the methylation/protection values should be randomly generated.}
+\item{randomMeth}{Logical indicating whether the
+methylation/protection values should be randomly generated.}
 }
 \value{
 RSE object with mock data.

@@ -13,32 +13,40 @@ footprintPerc(
 )
 }
 \arguments{
-\item{footprint_counts}{A Summarized Experiment containing the sample names (colData), ROI names (rowData),
-and number of fragments in each NOMe footprint pattern category as assays. For example
+\item{footprint_counts}{A Summarized Experiment containing the
+sample names (colData), ROI names (rowData), and number of fragments
+in each NOMe footprint pattern category as assays. For example
 the output of the (\code{footprintQuant}) function.}
 
-\item{minreads}{The minimum number of fragments to which a footprint could be assigned
-a ROI must have in all samples. All other ROIs are removed.}
+\item{minreads}{The minimum number of fragments to which a footprint
+could be assigned a ROI must have in all samples. All other ROIs
+are removed.}
 
-\item{meanreads}{The minimum number of fragments to which a footprint could be assigned
-a ROI must have on average across all samples. All other ROIs are removed.}
+\item{meanreads}{The minimum number of fragments to which a footprint
+could be assigned a ROI must have on average across all samples.
+All other ROIs are removed.}
 
-\item{ROIgroup}{Column name of a metadata column in the (\code{rowData}) of the RSE,
-describing a group each ROI belongs too, for example,
-different transcription factor motifs at the center of the ROI.}
+\item{ROIgroup}{Column name of a metadata column in the
+(\code{rowData}) of the RSE, describing a group each ROI belongs
+to, for example, different transcription factor motifs at the center
+of the ROI.}
 
-\item{combineNucCounts}{If TRUE, the upNuc, downNuc, and Nuc fragment counts will be combined into the Nuc category.}
+\item{combineNucCounts}{If TRUE, the upNuc, downNuc, and Nuc fragment
+counts will be combined into the Nuc category.}
 }
 \value{
-A tibble where each column corresponds to a sample-footprint percentage and each row to a ROI.
+A tibble where each column corresponds to a sample-footprint
+percentage and each row to a ROI.
 }
 \description{
-Calculates the percentage of all fragments in a ROI-sample combination corresponding to each footprint pattern.
+Calculates the percentage of all fragments in a
+ROI-sample combination corresponding to each footprint pattern.
 }
 \details{
-Calculates the percentage of all fragments in a ROI-sample combination in each footprint pattern. Then turns
-the table into wide format, where each column corresponds to a sample-footprint percentage and each row to a ROI
-and clusters the rows by similarity.
+Calculates the percentage of all fragments in a ROI-sample
+combination in each footprint pattern. Then turns the table into
+wide format, where each column corresponds to a sample-footprint
+percentage and each row to a ROI and clusters the rows by similarity.
 }
 \examples{
 NomeData <- createExampleData()

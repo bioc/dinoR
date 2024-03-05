@@ -6,10 +6,10 @@ output: github_document
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
+    collapse = TRUE,
+    comment = "#>",
+    fig.path = "man/figures/README-",
+    out.width = "100%"
 )
 ```
 
@@ -32,11 +32,11 @@ then we can load dinoR and other necessary packages:
 
 ```{r setup}
 suppressPackageStartupMessages({
-  library(dinoR)
-  library(ggplot2)
-  library(dplyr)
-  library(SummarizedExperiment)
-  })
+    library(dinoR)
+    library(ggplot2)
+    library(dplyr)
+    library(SummarizedExperiment)
+})
 ```
 
 ### Load the NOMe-seq data for Adnp Knock-Out and WT mouse ES cells (two replicates each)
@@ -52,7 +52,7 @@ NomeData
 The reads assay contains GPos objects with the GCH methylation data in two sparse logical matrices, one for protection from methylation , and one for methylation.
 
 ```{r reads}
-assays(NomeData)[["reads"]][1,1]
+assays(NomeData)[["reads"]][1, 1]
 ```
 
 ## Meta plots across ROIs with common TF motifs in the center
@@ -61,14 +61,19 @@ We generate metaplots, grouping our ROIs into those that have  Rest, Ctcf, or Ad
 We use 2 samples from WT mouse ES cells, and two samples from Adnp KO mouse ES cells. We exclude any ROI - sample combinations which contain less than 10 reads (nr=10).
 
 ```{r,fig.height=6,fig.width=8}
-avePlotData <- metaPlots(NomeData=NomeData,nr=10,ROIgroup = "motif")
+avePlotData <- metaPlots(NomeData = NomeData, nr = 10, ROIgroup = "motif")
 
-#plot average plots
-ggplot(avePlotData, aes(x=position,y=protection)) + geom_point(alpha=0.5) + 
-    geom_line(aes(x=position,y=loess),col="darkblue",lwd=2) + 
-    theme_classic() + facet_grid(rows = vars(type),cols= vars(sample), scales = "free") +
-    ylim(c(0,100)) + geom_hline(yintercept = c(10,20,30,40,50,60,70,80,90),
-                                alpha=0.5,color="grey",linetype="dashed")
+# plot average plots
+ggplot(avePlotData, aes(x = position, y = protection)) +
+    geom_point(alpha = 0.5) +
+    geom_line(aes(x = position, y = loess), col = "darkblue", lwd = 2) +
+    theme_classic() +
+    facet_grid(rows = vars(type), cols = vars(sample), scales = "free") +
+    ylim(c(0, 100)) +
+    geom_hline(
+        yintercept = c(10, 20, 30, 40, 50, 60, 70, 80, 90),
+        alpha = 0.5, color = "grey", linetype = "dashed"
+    )
 ```
 
 We can already see that while the NOMe footprints around Rest and Ctcf bound motifs don't change, there are clear differences between WT and Adnp KO cells around the Adnp bound motifs.
@@ -95,29 +100,36 @@ Next we can test for differential abundance of footprints between Adnp KO and WT
 We use edgeR to check for differences in abundance between wild type and Adnp KO samples for each footprint type fragment count compared to the total fragment counts. Library sizes for TMM normalization are calculated on the total fragment counts. 
 
 ```{r diNOMe}
-res <- diNOMeTest(NomeData,WTsamples = c("WT_1","WT_2"),
-  KOsamples = c("AdnpKO_1","AdnpKO_2"))
+res <- diNOMeTest(NomeData,
+    WTsamples = c("WT_1", "WT_2"),
+    KOsamples = c("AdnpKO_1", "AdnpKO_2")
+)
 res
 ```
 
 We can then simply plot the number of regulated ROIs within each ROI type...
 
 ```{r nregulated, fig.height=4,fig.width=7}
-
-res %>% group_by(contrasts,motif,regulated) %>% summarize(n=n()) %>% 
-  ggplot(aes(x=motif,y=n,fill=regulated)) + geom_bar(stat="identity") + 
-  facet_grid(~contrasts) + theme_bw() + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
-  scale_fill_manual(values=c("orange","grey","blue3"))
+res %>%
+    group_by(contrasts, motif, regulated) %>%
+    summarize(n = n()) %>%
+    ggplot(aes(x = motif, y = n, fill = regulated)) +
+    geom_bar(stat = "identity") +
+    facet_grid(~contrasts) +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+    scale_fill_manual(values = c("orange", "grey", "blue3"))
 ```
 
 
 ...or display the results in MA plots.
 
 ```{r MAplot,fig.height=2,fig.width=10}
-ggplot(res,aes(y=logFC,x=logCPM,col=regulated)) + geom_point() + 
-  facet_grid(~contrasts) + theme_bw() + 
-  scale_color_manual(values=c("orange","grey","blue3"))
+ggplot(res, aes(y = logFC, x = logCPM, col = regulated)) +
+    geom_point() +
+    facet_grid(~contrasts) +
+    theme_bw() +
+    scale_color_manual(values = c("orange", "grey", "blue3"))
 ```
 
 ## Calculate the percentage of fragments in each footprint type and plot a (clustered) heatmap comparing percentages in WT and Adnp KO
@@ -130,10 +142,10 @@ fpPercHeatmap(footprint_percentages)
 ## Compare the footprint percentages and significance testing results for Adnp KO and WT 
 
 ```{r comparison,fig.height=4,fig.width=8}
-
-compareFootprints(footprint_percentages,res,WTsamples = c("WT_1","WT_2"),
-                  KOsamples = c("AdnpKO_1","AdnpKO_2"),plotcols = c("#f03b20", "#a8ddb5", "#bdbdbd"))
-
+compareFootprints(footprint_percentages, res,
+    WTsamples = c("WT_1", "WT_2"),
+    KOsamples = c("AdnpKO_1", "AdnpKO_2"), plotcols = c("#f03b20", "#a8ddb5", "#bdbdbd")
+)
 ```
 
 We can see that in Adnp KO samples, transcription factor footprints significantly increase around Adnp motifs, while nucleosome footprints decrease. 

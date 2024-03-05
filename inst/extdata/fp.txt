@@ -1,5 +1,0 @@
-ROI	ROIgroup	tf_WT_1	tf_WT_2	tf_KO_1	tf_KO_2	open_WT_1	open_WT_2	open_KO_1	open_KO_2	upNuc_WT_1	upNuc_WT_2	upNuc_KO_1	upNuc_KO_2	Nuc_WT_1	Nuc_WT_2	Nuc_KO_1	Nuc_KO_2	downNuc_WT_1	downNuc_WT_2	downNuc_KO_1	downNuc_KO_2
-ROI2	motif1	25	20	25	20	15	5	0	15	0	15	15	10	45	50	55	55	15	10	5	0
-ROI1	motif1	20	10	10	10	15	25	40	20	10	10	5	5	45	50	30	40	10	5	15	25
-ROI3	motif1	10	15	5	15	15	35	35	15	10	0	0	10	50	40	55	50	15	10	5	10
-ROI4	motif1	10	20	10	20	20	20	20	5	10	10	10	20	50	40	45	50	10	10	15	5

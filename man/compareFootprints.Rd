@@ -15,34 +15,48 @@ compareFootprints(
 )
 }
 \arguments{
-\item{footprint_percentages}{A tibble where each column corresponds to a sample-footprint percentage and each row to a ROI,
+\item{footprint_percentages}{A tibble where each column corresponds to a
+sample-footprint percentage and each row to a ROI,
 with the rows clustered by similarity.}
 
-\item{res}{A tibble with the results of differential fragment count testing for each ROI-footprint combination.}
+\item{res}{A tibble with the results of differential fragment
+count testing for each ROI-footprint combination.}
 
 \item{WTsamples}{The control sample names.}
 
 \item{KOsamples}{The treatment sample names.}
 
-\item{plotcols}{A character vector of colors to be used for distinguishing the ROI groups (has to be the same length as there are ROI groups).}
+\item{plotcols}{A character vector of colors to be used
+for distinguishing the ROI groups (has to be the same
+length as there are ROI groups).}
 
 \item{facetROIgroup}{If TRUE, split the plots for each pattern by ROI group.}
 
 \item{plot}{If TRUE, will output a plot.}
 }
 \value{
-A scatter plot for each footprint pattern comparing WT and KO percentages and significance test results.
+A scatter plot for each footprint pattern comparing
+WT and KO percentages and significance test results.
 }
 \description{
-Compare each footprint pattern in WT and KO samples (percentages and diNOMeTest results).
+Compare each footprint pattern in WT and KO samples
+(percentages and diNOMeTest results).
 }
 \details{
-Plots the percentages of reads in each ROI in WT versus KO samples (mean of two replicates) in each
-footprint pattern. The color indicates the ROI group and the shape the results of the diNOMeTest.
+Plots the percentages of reads in each ROI in WT versus KO samples
+(mean of two replicates) in each footprint pattern. The color indicates
+the ROI group and the shape the results of the diNOMeTest.
 }
 \examples{
-res <- read.table(system.file("extdata", "res.txt", package = "dinoR"),header=TRUE)
-footprint_percentages <- read.table(system.file("extdata", "fp.txt", package = "dinoR"),header=TRUE)
-compareFootprints(footprint_percentages,res,plotcols="black",plot=TRUE)
+NomeData <- createExampleData()
+NomeData <- footprintCalc(NomeData)
+NomeData <- footprintQuant(NomeData)
+res <- diNOMeTest(NomeData,
+    WTsamples = c("WT_1", "WT_2"),
+    KOsamples = c("KO_1", "KO_2")
+)
+footprint_percentages <- footprintPerc(NomeData)
+compareFootprints(footprint_percentages, res,
+    plotcols = "black", plot = TRUE)
 
 }
