@@ -24,7 +24,8 @@ We recently developed a method, called guided NOMe-seq, which allows for
 obtaining high coverage NOMe-seq data from more than 1000 regions of interest 
 (ROIs) in the genome at low cost, thereby allowing us to profile multiple 
 samples at once (manuscript submitted). For example, as shown below, we 
-generated NOMe-seq data from ROIs spanning CTCF motifs from wild-type (WT) 
+generated NOMe-seq data targeting ROIs spanning CTCF
+or REST motifs from wild-type (WT) 
 and ADNP knock-out mouse ES cells, in duplicates. To facilitate processing
 of these samples, with a focus on detecting differences in nucleosome 
 positioning between WT and ADNP KO cells, we developed `dinoR`. `dinoR` 
@@ -55,7 +56,7 @@ suppressPackageStartupMessages({
 })
 ```
 
-## Load the NOMe-seq data for Adnp Knock-Out and 
+## Load the NOMe-seq data for ADNP Knock-Out and 
 ## WT mouse ES cells (two replicates each)
 
 To obtain the example data shown below, we used
@@ -105,9 +106,9 @@ assays(NomeData)[["reads"]][1, 1]
 
 ## Meta plots across ROIs with common TF motifs in the center
 
-We generate metaplots, grouping our ROIs into those that have  Rest,
-Ctcf, or Adnp bound to the motifs in their center.
-We use 2 samples from WT mouse ES cells, and two samples from Adnp KO 
+We generate metaplots, grouping our ROIs into those that have REST,
+CTCF, or ADNP bound to the motifs in their center.
+We use 2 samples from WT mouse ES cells, and two samples from ADNP KO 
 mouse ES cells. We exclude any ROI - sample combinations which contain 
 less than 10 reads (nr=10).
 
@@ -127,15 +128,15 @@ ggplot(avePlotData, aes(x = position, y = protection)) +
     )
 ```
 
-We can already see that while the NOMe footprints around Rest and Ctcf 
+We can already see that while the NOMe footprints around REST and CTCF 
 bound motifs don't change, there are clear differences between WT and 
-Adnp KO cells around the Adnp bound motifs.
+ADNP KO cells around the ADNP bound motifs.
 
 ## Determine fragment counts for five chromatin patterns: 
 ## TF, open, upNuc, downNuc, Nuc 
 
 To quantify the differences visible in above meta plots, we adopted 
-and slightly modified the approch of Sönmezer et al., 2021. We classify 
+and slightly modified the approach of Sönmezer et al., 2021. We classify 
 each fragment according to five types of footprints: transcription 
 factor bound (TF), open chromatin, and nucleosome (we distinguish also 
 upstream positioned nucleosome (upNuc), downstream positioned nucleosome 
@@ -158,23 +159,25 @@ assays(NomeData)[["footprints"]][[1, 1]][1:10]
 ```
 
 Then we count the number of fragments in each sample-ROI combination 
-supporting each footprint class. 
+supporting each footprint class. This results in the addition of an
+assay for each footprint category, and one for the combined counts
+across all footprint categories ("all").
 
 ```{r fragment class counts}
 NomeData <- footprintQuant(NomeData)
-NomeData
+assays(NomeData)[7:12]
 ```
 
 Note that if a fragment does not have methylation protection data in
 all three windows needed for classification, the fragment will not be used. 
 
 Next we can test for differential abundance of footprints between 
-Adnp KO and WT samples.
+ADNP KO and WT samples.
 
-## Calculate differential NOMe-seq footprint abundance between Adnp KO and WT 
+## Calculate differential NOMe-seq footprint abundance between ADNP KO and WT 
 
 We use edgeR to check for differences in abundance between wild type and 
-Adnp KO samples for each footprint type fragment count compared to the 
+ADNP KO samples for each footprint type fragment count compared to the 
 total fragment counts. Library sizes for TMM normalization are calculated 
 on the total fragment counts. 
 
@@ -213,7 +216,7 @@ ggplot(res, aes(y = logFC, x = logCPM, col = regulated)) +
 ```
 
 ## Calculate the percentage of fragments in each footprint type and 
-## plot a (clustered) heatmap comparing percentages in WT and Adnp KO
+## plot a (clustered) heatmap comparing percentages in WT and ADNP KO
 
 ```{r percentages,fig.height=5,fig.width=7}
 footprint_percentages <- footprintPerc(NomeData)
@@ -221,7 +224,7 @@ fpPercHeatmap(footprint_percentages)
 ```
 
 ## Compare the footprint percentages and significance testing
-## results for Adnp KO and WT 
+## results for ADNP KO and WT 
 
 ```{r comparison,fig.height=4,fig.width=8}
 compareFootprints(footprint_percentages, res,
@@ -231,8 +234,8 @@ compareFootprints(footprint_percentages, res,
 )
 ```
 
-We can see that in Adnp KO samples, transcription factor 
-footprints significantly increase around Adnp motifs, 
+We can see that in ADNP KO samples, transcription factor 
+footprints significantly increase around ADNP motifs, 
 while nucleosome footprints decrease. 
 
 ## Combining the nucleosome patterns
