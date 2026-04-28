@@ -1,6 +1,6 @@
 Package: dinoR
 Title: Differential NOMe-seq analysis
-Version: 1.7.0
+Version: 1.8.0
 Authors@R: 
     person("Michaela", "Schwaiger",, "michaela.schwaiger@fmi.ch", 
         role = c("aut", "cre"),
