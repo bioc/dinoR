@@ -10,7 +10,6 @@ diNOMeTest(
   KOsamples = c("KO_1", "KO_2"),
   minreads = 1,
   meanreads = 1,
-  prior.count = 3,
   FDR = 0.05,
   FC = 2,
   combineNucCounts = FALSE
@@ -38,8 +37,6 @@ out before the differential NOMe analysis.}
 a footprint could be assigned a ROI must on average across
 all samples. All other ROIs are filtered out before
 the differential NOMe analysis.}
-
-\item{prior.count}{The pseudocount used for (\code{edgeR::glmQLFit}).}
 
 \item{FDR}{The FDR cutoff for a ROI - footprint combination to be
 called regulated in the output.}

@@ -25,7 +25,6 @@
 #'   a footprint could be assigned a ROI must on average across
 #'   all samples. All other ROIs are filtered out before
 #'   the differential NOMe analysis.
-#' @param prior.count The pseudocount used for (\code{edgeR::glmQLFit}).
 #' @param FDR The FDR cutoff for a ROI - footprint combination to be
 #'   called regulated in the output.
 #' @param FC The fold change cutoff for a ROI - footprint combination
@@ -56,7 +55,7 @@
 #' @export
 diNOMeTest <- function(footprint_counts, WTsamples = c("WT_1", "WT_2"),
     KOsamples = c("KO_1", "KO_2"), minreads = 1,
-    meanreads = 1, prior.count = 3,
+    meanreads = 1,
     FDR = 0.05, FC = 2, combineNucCounts = FALSE) {
     # check that footprint_counts is a Summarized Experiment
     stopifnot("'footprint_counts' should be a RangedSummarizedExperiment" =
@@ -242,7 +241,7 @@ diNOMeTest <- function(footprint_counts, WTsamples = c("WT_1", "WT_2"),
     # dispersion
     y <- estimateDisp(y, dm)
     # model
-    fit <- glmQLFit(y, dm, prior.count = prior.count)
+    fit <- glmQLFit(y, dm)
 
     # use the contrasts defined above to get p-values and fold-changes
     res <- list()
